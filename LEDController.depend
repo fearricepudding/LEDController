@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1587403797 source:/home/jordan/cpp/LEDController/main.cpp
+	<cppcms/application.h>
+	<cppcms/applications_pool.h>
+	<cppcms/service.h>
+	<cppcms/http_response.h>
+	<iostream>
+
