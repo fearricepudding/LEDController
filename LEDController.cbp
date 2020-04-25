@@ -13,7 +13,18 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-lpthread -lcppcms" />
+					<Add directory="/usr/local/include" />
+					<Add directory="include" />
 				</Compiler>
+				<Linker>
+					<Add option="-lpthread -lcppcms -ldl -lpcre -licuuc -licui18n" />
+					<Add library="/usr/local/lib/libbooster.a" />
+					<Add library="/usr/local/lib/libbooster.so" />
+					<Add library="/usr/local/lib/libcppcms.a" />
+					<Add library="/usr/local/lib/libcppcms.so" />
+					<Add directory="/usr/local/include" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/LEDController" prefix_auto="1" extension_auto="1" />
@@ -22,6 +33,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,6 +44,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="config.js" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<envvars />

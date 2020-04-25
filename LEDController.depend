@@ -1,8 +1,437 @@
 # depslib dependency file v1.0
-1587403797 source:/home/jordan/cpp/LEDController/main.cpp
+1587767592 source:/home/jordan/cpp/LEDController/main.cpp
 	<cppcms/application.h>
-	<cppcms/applications_pool.h>
 	<cppcms/service.h>
 	<cppcms/http_response.h>
+	<cppcms/url_dispatcher.h>
+	<cppcms/url_mapper.h>
+	<cppcms/applications_pool.h>
 	<iostream>
+	<stdlib.h>
+	<LEDController.h>
+
+1587771281 source:/home/jordan/cpp/LEDController/LEDController.cpp
+	"LEDController.h"
+	"LEDController.h"
+
+1587770683 /home/jordan/cpp/LEDController/include/LEDController.h
+
+1526483127 /usr/local/include/cppcms/application.h
+	<cppcms/defs.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<booster/atomic_counter.h>
+	<booster/intrusive_ptr.h>
+	<booster/shared_ptr.h>
+	<string>
+
+1526483127 /usr/local/include/cppcms/defs.h
+
+1526483127 /usr/local/include/booster/noncopyable.h
+
+1526483127 /usr/local/include/booster/hold_ptr.h
+
+1526483127 /usr/local/include/booster/atomic_counter.h
+	<booster/config.h>
+
+1526483127 /usr/local/include/booster/config.h
+
+1526483127 /usr/local/include/booster/intrusive_ptr.h
+	<functional>
+	<iosfwd>
+
+1526483127 /usr/local/include/booster/shared_ptr.h
+	<booster/config.h>
+	<booster/auto_ptr_inc.h>
+	<cassert>
+	<booster/backtrace.h>
+	<booster/checked_delete.h>
+	<booster/smart_ptr/shared_count.h>
+	<booster/smart_ptr/sp_convertible.h>
+	<algorithm>
+	<functional>
+	<typeinfo>
+	<iosfwd>
+	<booster/smart_ptr/operator_bool.h>
+
+1526483127 /usr/local/include/booster/auto_ptr_inc.h
+	<functional>
+	<bits/c++config.h>
+	<memory>
+
+1526483127 /usr/local/include/booster/backtrace.h
+	<booster/config.h>
+	<stdexcept>
+	<typeinfo>
+	<string>
+	<vector>
+	<iosfwd>
+
+1526483127 /usr/local/include/booster/checked_delete.h
+
+1526483127 /usr/local/include/booster/smart_ptr/shared_count.h
+	<booster/config.h>
+	<booster/checked_delete.h>
+	<booster/bad_weak_ptr.h>
+	<booster/smart_ptr/sp_counted_base.h>
+	<booster/smart_ptr/sp_counted_impl.h>
+	<booster/auto_ptr_inc.h>
+	<functional>
+	<new>
+
+1526483127 /usr/local/include/booster/bad_weak_ptr.h
+	<booster/backtrace.h>
+
+1526483127 /usr/local/include/booster/smart_ptr/sp_counted_base.h
+	<booster/config.h>
+	<booster/smart_ptr/sp_typeinfo.h>
+	<pthread.h>
+
+1526483127 /usr/local/include/booster/smart_ptr/sp_typeinfo.h
+	<booster/config.h>
+	<typeinfo>
+
+1526483127 /usr/local/include/booster/smart_ptr/sp_counted_impl.h
+	<booster/config.h>
+	<booster/checked_delete.h>
+	<booster/smart_ptr/sp_counted_base.h>
+	<booster/auto_ptr_inc.h>
+	<cstddef>
+
+1526483127 /usr/local/include/booster/smart_ptr/sp_convertible.h
+	<booster/config.h>
+
+1526483127 /usr/local/include/booster/smart_ptr/operator_bool.h
+
+1526483127 /usr/local/include/cppcms/service.h
+	<cppcms/defs.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<booster/function.h>
+	<locale>
+	<booster/auto_ptr_inc.h>
+	<cppcms/locale_fwd.h>
+	<cppcms/json.h>
+
+1526483127 /usr/local/include/booster/function.h
+	<booster/backtrace.h>
+	<booster/clone_ptr.h>
+
+1526483127 /usr/local/include/booster/clone_ptr.h
+
+1526483127 /usr/local/include/cppcms/locale_fwd.h
+	<cppcms/config.h>
+
+1587393151 /usr/local/include/cppcms/config.h
+
+1526483127 /usr/local/include/cppcms/json.h
+	<cppcms/defs.h>
+	<cppcms/string_key.h>
+	<booster/copy_ptr.h>
+	<booster/backtrace.h>
+	<vector>
+	<map>
+	<string>
+	<iostream>
+	<limits>
+
+1526483127 /usr/local/include/cppcms/string_key.h
+	<string>
+	<string.h>
+	<algorithm>
+	<stdexcept>
+	<ostream>
+
+1526483127 /usr/local/include/booster/copy_ptr.h
+
+1526483127 /usr/local/include/cppcms/http_response.h
+	<cppcms/defs.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<string>
+	<iostream>
+	<cppcms/cstdint.h>
+
+1526483127 /usr/local/include/cppcms/cstdint.h
+	<booster/cstdint.h>
+
+1526483127 /usr/local/include/booster/cstdint.h
+	<booster/build_config.h>
+	<stdint.h>
+	<inttypes.h>
+
+1587393148 /usr/local/include/booster/build_config.h
+
+1526483127 /usr/local/include/cppcms/url_dispatcher.h
+	<booster/noncopyable.h>
+	<cppcms/defs.h>
+	<booster/function.h>
+	<booster/hold_ptr.h>
+	<booster/traits/enable_if.h>
+	<booster/traits/is_base_of.h>
+	<booster/traits/type_traits.h>
+	<booster/regex.h>
+	<cppcms/application.h>
+	<cppcms/steal_buf.h>
+	<string>
+	<list>
+
+1526483127 /usr/local/include/booster/traits/enable_if.h
+
+1526483127 /usr/local/include/booster/traits/is_base_of.h
+
+1526483127 /usr/local/include/booster/traits/type_traits.h
+	<booster/traits/enable_if.h>
+	<booster/traits/is_base_of.h>
+
+1526483127 /usr/local/include/booster/regex.h
+	"perl_regex.h"
+	"regex_match.h"
+
+1526483127 /usr/local/include/booster/perl_regex.h
+	<booster/config.h>
+	<booster/copy_ptr.h>
+	<string>
+	<vector>
+	<booster/backtrace.h>
+
+1526483127 /usr/local/include/booster/regex_match.h
+	<algorithm>
+	<iterator>
+	<string>
+	<vector>
+	<string.h>
+
+1526483127 /usr/local/include/cppcms/steal_buf.h
+	<streambuf>
+	<ostream>
+	<istream>
+	<stdio.h>
+	<string>
+	<string.h>
+	<stdlib.h>
+
+1526483127 /usr/local/include/cppcms/url_mapper.h
+	<cppcms/defs.h>
+	<cppcms/string_key.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<cppcms/filters.h>
+	<string>
+	<vector>
+
+1526483127 /usr/local/include/cppcms/filters.h
+	<locale>
+	<typeinfo>
+	<sstream>
+	<vector>
+	<iostream>
+	<cppcms/defs.h>
+	<booster/copy_ptr.h>
+	<booster/hold_ptr.h>
+	<booster/noncopyable.h>
+	<cppcms/localization.h>
+
+1526483127 /usr/local/include/cppcms/localization.h
+	<cppcms/config.h>
+	<booster/locale.h>
+
+1526483127 /usr/local/include/booster/locale.h
+	<booster/locale/boundary.h>
+	<booster/locale/collator.h>
+	<booster/locale/conversion.h>
+	<booster/locale/date_time.h>
+	<booster/locale/date_time_facet.h>
+	<booster/locale/encoding.h>
+	<booster/locale/format.h>
+	<booster/locale/formatting.h>
+	<booster/locale/generator.h>
+	<booster/locale/gnu_gettext.h>
+	<booster/locale/info.h>
+	<booster/locale/localization_backend.h>
+	<booster/locale/message.h>
+	<booster/locale/util.h>
+
+1526483127 /usr/local/include/booster/locale/boundary.h
+	<booster/locale/boundary/types.h>
+	<booster/locale/boundary/facets.h>
+	<booster/locale/boundary/segment.h>
+	<booster/locale/boundary/boundary_point.h>
+	<booster/locale/boundary/index.h>
+
+1526483127 /usr/local/include/booster/locale/boundary/types.h
+	<booster/config.h>
+	<booster/cstdint.h>
+	<booster/assert.h>
+
+1526483127 /usr/local/include/booster/assert.h
+	<assert.h>
+
+1526483127 /usr/local/include/booster/locale/boundary/facets.h
+	<booster/config.h>
+	<booster/locale/boundary/types.h>
+	<locale>
+	<vector>
+
+1526483127 /usr/local/include/booster/locale/boundary/segment.h
+	<booster/config.h>
+	<locale>
+	<string>
+	<iosfwd>
+	<iterator>
+
+1526483127 /usr/local/include/booster/locale/boundary/boundary_point.h
+	<booster/locale/boundary/types.h>
+
+1526483127 /usr/local/include/booster/locale/boundary/index.h
+	<booster/config.h>
+	<booster/locale/boundary/types.h>
+	<booster/locale/boundary/facets.h>
+	<booster/locale/boundary/segment.h>
+	<booster/locale/boundary/boundary_point.h>
+	<booster/iterator/iterator_facade.h>
+	<booster/traits/is_base_of.h>
+	<booster/shared_ptr.h>
+	<booster/cstdint.h>
+	<booster/assert.h>
+	<string>
+	<locale>
+	<vector>
+	<iterator>
+	<algorithm>
+	<booster/backtrace.h>
+	<iostream>
+
+1526483127 /usr/local/include/booster/iterator/iterator_facade.h
+	<cstddef>
+
+1526483127 /usr/local/include/booster/locale/collator.h
+	<booster/config.h>
+	<locale>
+
+1526483127 /usr/local/include/booster/locale/conversion.h
+	<booster/config.h>
+	<locale>
+
+1526483127 /usr/local/include/booster/locale/date_time.h
+	<booster/config.h>
+	<booster/locale/hold_ptr.h>
+	<booster/locale/date_time_facet.h>
+	<booster/locale/formatting.h>
+	<booster/locale/time_zone.h>
+	<locale>
+	<vector>
+	<booster/backtrace.h>
+
+1526483127 /usr/local/include/booster/locale/hold_ptr.h
+
+1526483127 /usr/local/include/booster/locale/date_time_facet.h
+	<booster/config.h>
+	<booster/cstdint.h>
+	<locale>
+
+1526483127 /usr/local/include/booster/locale/formatting.h
+	<booster/config.h>
+	<booster/cstdint.h>
+	<booster/locale/time_zone.h>
+	<ostream>
+	<istream>
+	<string>
+	<string.h>
+	<typeinfo>
+
+1526483127 /usr/local/include/booster/locale/time_zone.h
+	<booster/config.h>
+	<string>
+
+1526483127 /usr/local/include/booster/locale/encoding.h
+	<booster/config.h>
+	<booster/locale/info.h>
+	<booster/locale/encoding_errors.h>
+	<booster/locale/encoding_utf.h>
+
+1526483127 /usr/local/include/booster/locale/info.h
+	<booster/config.h>
+	<locale>
+	<string>
+
+1526483127 /usr/local/include/booster/locale/encoding_errors.h
+	<booster/config.h>
+	<booster/backtrace.h>
+
+1526483127 /usr/local/include/booster/locale/encoding_utf.h
+	<booster/locale/utf.h>
+	<booster/locale/encoding_errors.h>
+	<iterator>
+
+1526483127 /usr/local/include/booster/locale/utf.h
+	<booster/cstdint.h>
+
+1526483127 /usr/local/include/booster/locale/format.h
+	<booster/config.h>
+	<booster/locale/message.h>
+	<booster/locale/formatting.h>
+	<sstream>
+
+1526483127 /usr/local/include/booster/locale/message.h
+	<booster/config.h>
+	<locale>
+	<string>
+	<vector>
+	<set>
+	<booster/auto_ptr_inc.h>
+	<booster/locale/formatting.h>
+
+1526483127 /usr/local/include/booster/locale/generator.h
+	<booster/config.h>
+	<booster/cstdint.h>
+	<string>
+	<locale>
+	<booster/auto_ptr_inc.h>
+
+1526483127 /usr/local/include/booster/locale/gnu_gettext.h
+	<booster/locale/message.h>
+	<booster/function.h>
+	<booster/backtrace.h>
+
+1526483127 /usr/local/include/booster/locale/localization_backend.h
+	<booster/config.h>
+	<booster/locale/generator.h>
+	<string>
+	<locale>
+	<vector>
+	<booster/auto_ptr_inc.h>
+
+1526483127 /usr/local/include/booster/locale/util.h
+	<locale>
+	<typeinfo>
+	<booster/cstdint.h>
+	<booster/locale/utf.h>
+	<booster/locale/generator.h>
+	<booster/assert.h>
+	<vector>
+
+1526483127 /usr/local/include/cppcms/applications_pool.h
+	<cppcms/defs.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<booster/intrusive_ptr.h>
+	<booster/shared_ptr.h>
+	<booster/weak_ptr.h>
+	<booster/enable_shared_from_this.h>
+	<booster/auto_ptr_inc.h>
+	<string>
+
+1526483127 /usr/local/include/booster/weak_ptr.h
+	<booster/auto_ptr_inc.h>
+	<booster/smart_ptr/shared_count.h>
+	<booster/shared_ptr.h>
+
+1526483127 /usr/local/include/booster/enable_shared_from_this.h
+	<booster/weak_ptr.h>
+	<booster/shared_ptr.h>
+	<assert.h>
+	<booster/config.h>
+
+1587773182 /home/jordan/cpp/LEDController/LEDController.h
 

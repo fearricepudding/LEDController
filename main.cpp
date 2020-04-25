@@ -1,51 +1,38 @@
-#include <cppcms/application.h>
-#include <cppcms/service.h>
-#include <cppcms/http_response.h>
-#include <cppcms/url_dispatcher.h>
-#include <cppcms/url_mapper.h>
-#include <cppcms/applications_pool.h>
-#include <iostream>
-#include <stdlib.h>
+#include "main.h"
 
-class hello: public cppcms::application {
-public:
-    hello(cppcms::service &srv) :
-        cppcms::application(srv)
-    {
-        // Number
-        dispatcher().assign("/number/(\\d+)",&hello::number,this,1);
-        mapper().assign("number","/number/{1}");
+static LEDController controller;
 
-        // Landing
-        dispatcher().assign("",&hello::welcome,this);
-        mapper().assign("");
-        mapper().root("/hello");
-    }
-    void number(std::string num)
-    {
-        int no = atoi(num.c_str());
-        response().out() << "The number is " << no << "<br/>\n";
-        response().out() << "<a href='" << url("/") << "'>Go back</a>";
-    }
-    void smile()
-    {
-        response().out() << ":-) <br/>\n";
-        response().out() << "<a href='" << url("/") << "'>Go back</a>";
-    }
-    void welcome()
-    {
-        response().out() <<
-            "<h1> Wellcome To Page with links </h1>\n"
-            "<a href='" << url("/number",1)  << "'>1</a><br>\n"
-            "<a href='" << url("/number",15) << "'>15</a><br>\n"
-            "<a href='" << url("/smile") << "' >:-)</a><br>\n";
-    }
+Application::Application(cppcms::service &srv) :
+    cppcms::application(srv)
+{
+
+    dispatcher().assign("/test", &Application::test, this);
+    mapper().assign("/test");
 };
+
+std::string Application::BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
+
+void Application::test()
+{
+    bool SERV_OK = controller.check();
+    json_out(BoolToString(SERV_OK));
+};
+
+void Application::json_out(std::string message){
+    response().out() << "Hello, world!";
+  //'{"status":"ok", "message": "' << message << '"}';
+};
+
 int main(int argc,char ** argv)
 {
+    controller.state = false;
+    controller.ready = true;
     try {
         cppcms::service app(argc,argv);
-        app.applications_pool().mount(cppcms::applications_factory<hello>());
+        app.applications_pool().mount(cppcms::applications_factory<Application>());
         app.run();
     }
     catch(std::exception const &e) {
