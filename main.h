@@ -17,6 +17,7 @@ class Application: public cppcms::application {
         std::string BoolToString(bool b);
         void test();
         void json_out(std::string);
+        void status();
 };
 
 #endif // MAIN_H_INCLUDED
