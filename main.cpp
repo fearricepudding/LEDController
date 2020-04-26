@@ -1,21 +1,24 @@
+#include "libs.h"
+#include "LEDController.h"
 #include "main.h"
 
-static LEDController controller;
+LEDController controller;
 
 Application::Application(cppcms::service &srv) :
     cppcms::application(srv)
 {
     // Map our routes
     dispatcher().assign("/test", &Application::test, this);
-    mapper().assign("/test");
+    //mapper().assign("/test");
     dispatcher().assign("/status", &Application::status, this);
-    mapper().assign("/status");
-
+    //mapper().assign("/status");
+    dispatcher().assign("/toggle", &Application::toggle, this);
+    //mapper().assign("/toggle");
 };
 
 std::string Application::BoolToString(bool b)
 {
-  return b ? "true" : "false";
+    return b ? "true" : "false";
 }
 
 void Application::test()
@@ -31,20 +34,34 @@ void Application::status()
     json_out(output);
 }
 
-void Application::json_out(std::string message){
+void Application::toggle()
+{
+    log("Toggle state");
+    controller.toggle();
+}
+
+void Application::json_out(std::string message)
+{
     response().out() << "{\"status\":\"ok\", \"data\":"+message+"}";
 };
 
+void Application::log(std::string message)
+{
+    std::cout << "[*] LEDController: " << message << std::endl;
+}
+
 int main(int argc,char ** argv)
 {
-    controller.state = false;
-    controller.ready = true;
-    try {
+    // Run startup for the controller
+    try
+    {
         cppcms::service app(argc,argv);
         app.applications_pool().mount(cppcms::applications_factory<Application>());
         app.run();
+
     }
-    catch(std::exception const &e) {
+    catch(std::exception const &e)
+    {
         std::cerr<<e.what()<<std::endl;
     }
 }

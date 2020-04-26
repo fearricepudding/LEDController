@@ -1,18 +1,12 @@
 # depslib dependency file v1.0
-1587767592 source:/home/jordan/cpp/LEDController/main.cpp
-	<cppcms/application.h>
-	<cppcms/service.h>
-	<cppcms/http_response.h>
-	<cppcms/url_dispatcher.h>
-	<cppcms/url_mapper.h>
-	<cppcms/applications_pool.h>
-	<iostream>
-	<stdlib.h>
-	<LEDController.h>
+1587835198 source:/home/jordan/cpp/LEDController/main.cpp
+	"libs.h"
+	"LEDController.h"
+	"main.h"
 
-1587771281 source:/home/jordan/cpp/LEDController/LEDController.cpp
+1587836163 source:/home/jordan/cpp/LEDController/LEDController.cpp
 	"LEDController.h"
-	"LEDController.h"
+	"main.h"
 
 1587770683 /home/jordan/cpp/LEDController/include/LEDController.h
 
@@ -433,5 +427,51 @@
 	<assert.h>
 	<booster/config.h>
 
-1587773182 /home/jordan/cpp/LEDController/LEDController.h
+1587834567 /home/jordan/cpp/LEDController/LEDController.h
+	"libs.h"
+	<pigpio.h>
+
+1587832812 /home/jordan/cpp/LEDController/main.h
+	"libs.h"
+
+1526483127 /usr/local/include/cppcms/http_request.h
+	<cppcms/defs.h>
+	<booster/noncopyable.h>
+	<booster/hold_ptr.h>
+	<booster/shared_ptr.h>
+	<cppcms/http_content_type.h>
+	<string>
+	<map>
+	<vector>
+
+1526483127 /usr/local/include/cppcms/http_content_type.h
+	<cppcms/defs.h>
+	<booster/shared_ptr.h>
+	<string>
+	<map>
+
+1587820779 /home/jordan/cpp/LEDController/libs.h
+	<cppcms/application.h>
+	<cppcms/service.h>
+	<cppcms/http_response.h>
+	<cppcms/http_request.h>
+	<cppcms/url_dispatcher.h>
+	<cppcms/url_mapper.h>
+	<cppcms/applications_pool.h>
+	<iostream>
+	<stdlib.h>
+
+1585067054 /usr/local/include/pigpio.h
+	<stdint.h>
+	<pthread.h>
+	<stdio.h>
+	<pigpio.h>
+	<stdio.h>
+	"pigpio.h"
+	<stdio.h>
+	<pigpio.h>
+	<stdio.h>
+	<pigpio.h>
+	<stdio.h>
+	<pigpio.h>
 

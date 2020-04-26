@@ -1,3 +1,6 @@
+#include "libs.h"
+#include <pigpio.h>
+
 #ifndef LEDCONTROLLER_H
 #define LEDCONTROLLER_H
 
@@ -10,6 +13,8 @@ struct RGB {
 class LEDController
 {
     public:
+        LEDController();
+
         // states
         bool ready;
         bool state;
@@ -19,6 +24,10 @@ class LEDController
         bool toggle();
         bool toggle(bool state);
         RGB status();
+
+
+    private:
+        bool update();
 };
 
 #endif // LEDCONTROLLER_H
