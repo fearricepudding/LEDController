@@ -5,6 +5,6 @@
                 "port" : 8080
         },
         "http" : {
-                "script" : "/hello"
+                "script" : "/"
         }
 }
