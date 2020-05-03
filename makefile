@@ -4,8 +4,8 @@ CXX = g++
 CFLAGS = -Wall -fexceptions -g -lpthread -lcppcms
 INC = -I /usr/local/include -I include
 LIBDIR = -L /usr/local/include
-LIB = /usr/local/lib/libbooster.a /usr/local/lib/libbooster.so /usr/local/lib/libcppcms.a /usr/local/lib/libcppcms.so
-LDFLAGS = -lpthread -lcppcms -ldl -lpcre -licuuc -licui18n
+LIB = /usr/local/lib/libbooster.a /usr/local/lib/libbooster.so /usr/local/lib/libcppcms.a /usr/local/lib/libcppcms.so /usr/local/lib/libpigpio.so
+LDFLAGS = -lpthread -lcppcms -ldl -lpcre -licuuc -licui18n -lpigpio
 OBJDIR = obj
 OUT = bin/LEDController
 

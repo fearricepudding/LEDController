@@ -26,11 +26,12 @@ bool LEDController::update()
 {
     if(state)
     {
-
+        // Set LED colour
+        
     }
     else
     {
-
+        // Set LEDS off
     }
     return true;
 }
@@ -38,13 +39,7 @@ bool LEDController::update()
  LEDController::LEDController()
 {
     //gpioTerminate();
-    //gpioInitialise();
-
-    /*
-    gpioSetMode(18, PI_OUTPUT);
-    gpioSetMode(19, PI_OUTPUT);
-    gpioSetMode(20, PI_OUTPUT);
-    */
+    gpioInitialise();
 
     // Turn the lights on
     this->state = true;

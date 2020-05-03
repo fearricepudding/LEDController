@@ -36,9 +36,12 @@ void Application::status()
 
 void Application::toggle()
 {
-    log("Toggle state");
-    controller.toggle();
-}
+	if(request().request_method() == "POST")
+	{
+    	log("Toggle requested");
+		controller.toggle();
+	};
+};
 
 void Application::json_out(std::string message)
 {

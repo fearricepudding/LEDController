@@ -14,7 +14,6 @@ class LEDController
 {
     public:
         LEDController();
-
         // states
         bool ready;
         bool state;
@@ -24,8 +23,6 @@ class LEDController
         bool toggle();
         bool toggle(bool state);
         RGB status();
-
-
     private:
         bool update();
 };
