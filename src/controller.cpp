@@ -11,8 +11,9 @@ int main(int argc, char **argv){
 //	    n->setPixelColor(i, 100, 150, 100);
 //    }
 //    n->show();
+	n->setBrightness(.3f);
 	while(true){
-    	n->rainbowCycle(5);
+	    	n->rainbowCycle(5);
 	}
     delete n;
     return 0;
