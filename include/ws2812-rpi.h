@@ -86,8 +86,7 @@ public:
     void bars(std::vector<Color_t>& scheme, int width=1, int speedMS=1000);
 
     void effectsDemo();
-    static Color_t Color(unsigned char r, unsigned char g, unsigned char b);
-
+    
 private:
     static void printBinary(unsigned int i, unsigned int bits);
     static unsigned int reverseWord(unsigned int word);
@@ -102,6 +101,7 @@ private:
     void clearPWMBuffer();
     void clearLEDBuffer();
 
+	static Color_t Color(unsigned char r, unsigned char g, unsigned char b);
     static Color_t RGB2Color(unsigned char r, unsigned char g, unsigned char b);
 
     void setPWMBit(unsigned int bitPos, unsigned char bit);
