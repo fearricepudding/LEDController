@@ -13,4 +13,4 @@ file(GLOB LEDController_src
 )
 add_executable(LEDController ${LEDController_src})
 #-lpython3.7m -lcrypt -lpthread -ldl  -lutil -lm 
-target_link_libraries(LEDController cppcms nlohmann_json::nlohmann_json)
+target_link_libraries(LEDController cppcms nlohmann_json::nlohmann_json booster dl pcre z pthread)
