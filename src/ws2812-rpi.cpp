@@ -24,6 +24,8 @@
 */
 #include "ws2812-rpi.h"
 
+bool debug = false;
+
 struct control_data_s* NeoPixel::ctl=0;
 uint8_t* NeoPixel::virtbase=0;
 volatile unsigned int* NeoPixel::pwm_reg=0;
@@ -37,10 +39,12 @@ NeoPixel::NeoPixel(unsigned int n)
     : numLEDs(n)
 {
     LEDBuffer.resize(n);
-    brightness=DEFAULT_BRIGHTNESS;
-
-    initHardware();
-    clearLEDBuffer();
+    
+    if(!debug){
+		brightness=DEFAULT_BRIGHTNESS;
+		initHardware();
+		clearLEDBuffer();
+    };
 }
 
 NeoPixel::~NeoPixel(){
@@ -51,48 +55,53 @@ NeoPixel::~NeoPixel(){
 void NeoPixel::begin(){};
 
 void NeoPixel::show(){
-    int i, j;
-    unsigned int LEDBuffeWordPos = 0;
-    unsigned int PWMWaveformBitPos = 0;
-    unsigned int colorBits = 0;
-    unsigned char colorBit = 0;
-    unsigned int wireBit = 0;
-    Color_t color;
+	if(debug){
+		printf("Debug mode");
+	}else{
+		int i, j;
+		unsigned int LEDBuffeWordPos = 0;
+		unsigned int PWMWaveformBitPos = 0;
+		unsigned int colorBits = 0;
+		unsigned char colorBit = 0;
+		unsigned int wireBit = 0;
+		Color_t color;
+		std::vector<Color_t> updateBuffer;
 
-    for(i=0; i<numLEDs; i++) {
-        LEDBuffer[i].r *= brightness;
-        LEDBuffer[i].g *= brightness;
-        LEDBuffer[i].b *= brightness;
-        colorBits = ((unsigned int)LEDBuffer[i].r << 8) | ((unsigned int)LEDBuffer[i].g << 16) | LEDBuffer[i].b;
+		for(i=0; i<numLEDs; i++) {
+		    updateBuffer[i].r = LEDBuffer[i].r * brightness;
+		    updateBuffer[i].g = LEDBuffer[i].g * brightness;
+		    updateBuffer[i].b = LEDBuffer[i].b * brightness;
+		    colorBits = ((unsigned int)updateBuffer[i].r << 8) | ((unsigned int)updateBuffer[i].g << 16) | updateBuffer[i].b;
 
-        for(j=23; j>=0; j--) {
-            colorBit = (colorBits & (1 << j)) ? 1 : 0;
-            switch(colorBit) {
-                case 1:
-                    setPWMBit(wireBit++, 1);
-                    setPWMBit(wireBit++, 1);
-                    setPWMBit(wireBit++, 0);
-                    break;
-                case 0:
-                    setPWMBit(wireBit++, 1);
-                    setPWMBit(wireBit++, 0);
-                    setPWMBit(wireBit++, 0);
-                    break;
-            }
-        }
+		    for(j=23; j>=0; j--) {
+		        colorBit = (colorBits & (1 << j)) ? 1 : 0;
+		        switch(colorBit) {
+		            case 1:
+		                setPWMBit(wireBit++, 1);
+		                setPWMBit(wireBit++, 1);
+		                setPWMBit(wireBit++, 0);
+		                break;
+		            case 0:
+		                setPWMBit(wireBit++, 1);
+		                setPWMBit(wireBit++, 0);
+		                setPWMBit(wireBit++, 0);
+		                break;
+		        }
+		    }
+		}
+
+		ctl = (struct control_data_s *)virtbase;
+		dma_cb_t *cbp = ctl->cb;
+
+		for(i = 0; i < (cbp->length / 4); i++) {
+		    ctl->sample[i] = PWMWaveform[i];
+		}
+
+		startTransfer();
+
+		float bitTimeUSec = (float)(NUM_DATA_WORDS * 32) * 0.4;
+		usleep((int)bitTimeUSec);
     }
-
-    ctl = (struct control_data_s *)virtbase;
-    dma_cb_t *cbp = ctl->cb;
-
-    for(i = 0; i < (cbp->length / 4); i++) {
-        ctl->sample[i] = PWMWaveform[i];
-    }
-
-    startTransfer();
-
-    float bitTimeUSec = (float)(NUM_DATA_WORDS * 32) * 0.4;
-    usleep((int)bitTimeUSec);
 };
 
 unsigned char NeoPixel::setPixelColor(unsigned int pixel, unsigned char r, unsigned char g, unsigned char b){

@@ -33,6 +33,7 @@ void controller::serveStatus(){
 	dat["status"] = status;
 	dat["message"] = message;
 	response().out() << dat.dump();
+
 }
 
 /**
