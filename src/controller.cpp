@@ -17,10 +17,16 @@ NeoPixel *n=new NeoPixel(PIXELS);
 controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("", &controller::serveStatus, this);
 	dispatcher().assign("/toggle", &controller::toggle, this);
+	dispatcher().assign("/brightness", &controller::setBrightness, this);
 	status = 0;
 	message = "Ready";
 }
 
+/**
+* Show the status of the controller
+*
+* @return void
+*/
 void controller::serveStatus(){
 	json dat;
 	dat["version"] = "0.1";
@@ -29,40 +35,63 @@ void controller::serveStatus(){
 	response().out() << dat.dump();
 }
 
+/**
+* Toggle the LEDs off and back onto their previous setting
+*
+* @return void
+*/
 void controller::toggle(){
 	if(request().request_method() == "POST"){
-	if(state){
-		float brightness = n->getBrightness();
-		printf("Brightness: %f", brightness);
-		while(brightness > 0){
-			brightness -= .1f;
-			n->setBrightness(brightness);
+		if(state){
+			float brightness = n->getBrightness();
+			while(brightness > .1f){
+				brightness -= .1f;
+				printf("Decreasing: %f\n", brightness);
+				n->setBrightness(brightness);
+				n->show();
+				usleep(50000);
+			}
+			state = false;
+		}else{
+			float brightness = .1f;
+			n->setBrightness(.1f);
 			n->show();
-		}
-		state = false;
+			while(brightness < .9f){
+				brightness += .1f;
+				printf("Increasing... %f\n", brightness);
+				n->setBrightness(brightness);
+				n->show();
+				usleep(50000);
+			};
+			state = true;
+		};
 	}else{
-		float brightness = n->getBrightness();
-		printf("brightness: %f", brightness);
-		int i;
-		
-		for(i=0;i<PIXELS;i++){
-			n->setPixelColor(i, 255,255,255);
-		}
-		n->setBrightness(0.1f);
-		n->show();
-		while(brightness < .9f){
-			printf("Increasing... %f", brightness);
-			brightness += .1f;
-			n->setBrightness(brightness);
-			n->show();
-		}
-		state = true;
-	}	
-}
+		response().status(403);
+		response().out() << "403 - Method Not Allowd";
+	};
 }
 
-void rainbow(){
+/**
+* Set brightness of the strip
+*
+* @return void
+*/
+void controller::setBrightness(){
+	std::string postData = request().post((std::string)"data");
+
+	std::cout << postData << std::endl;
+	auto data = json::parse(postData);
+	response().out() << "End";
+}	
+
+/**
+* Cool idle rainbow
+*
+* @return void
+*/
+void controller::idleRainbow(){
 	n->setBrightness(.3f);
+	state = true;
 	while(true){
 	    	n->rainbowCycle(5);
 	}
@@ -73,9 +102,6 @@ void shutdown(){
 }
 
 int main(int argc,char ** argv){
-	while(true){
-		n->rainbowCycle(10);
-	}
     try{
         cppcms::service app(argc,argv);
         app.applications_pool().mount(cppcms::applications_factory<controller>());
