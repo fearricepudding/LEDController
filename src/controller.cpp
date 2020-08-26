@@ -18,6 +18,7 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("", &controller::serveStatus, this);
 	dispatcher().assign("/toggle", &controller::toggle, this);
 	dispatcher().assign("/brightness", &controller::setBrightness, this);
+	dispatcher().assign("/white", &controller::white, this);
 	status = 0;
 	message = "Ready";
 }
@@ -84,6 +85,19 @@ void controller::setBrightness(){
 	auto data = json::parse(postData);
 	response().out() << "End";
 }	
+
+void controller::white(){
+	int i;
+	for(i=0;i<PIXELS;i++){
+		n->setPixelColor(i, 255, 255, 255);
+	}
+	n->show();
+	
+	json resp;
+	resp["status"] = "0";
+	response().out() << resp.dump();
+	printf("WHITE RESET");
+}
 
 /**
 * Cool idle rainbow

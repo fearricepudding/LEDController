@@ -11,4 +11,5 @@ class controller: public cppcms::application{
 		void serveStatus();
 		void idleRainbow();
 		void setBrightness();
+		void white();
 };
