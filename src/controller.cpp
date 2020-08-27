@@ -36,7 +36,7 @@ void controller::serveStatus(){
 	dat["status"] = status;
 	dat["message"] = message;
 	response().out() << dat.dump();
-
+	printf("Status request \n");
 }
 
 /**
@@ -82,8 +82,11 @@ void controller::toggle(){
 */
 void controller::setBrightness(){
 	if(request().request_method() == "POST"){
-	std::string postData = request().post((std::string)"data");
-	
+//		std::string postData = request().post((std::string)"data");
+
+		std::pair<void *,size_t> data = request().raw_post_data();
+		std::string postdata(reinterpret_cast<char *>(data.first),data.second);
+		std::cout << postdata << std::endl;
 	}else{
 		response().status(403);
 		response().out() << "403 - Method Not Allowd";
