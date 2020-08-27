@@ -69,6 +69,7 @@ void controller::toggle(){
 			};
 			state = true;
 		};
+		stripStatus();
 	}else{
 		response().status(403);
 		response().out() << "403 - Method Not Allowd";
