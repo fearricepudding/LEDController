@@ -48,7 +48,7 @@ void controller::toggle(){
 	if(request().request_method() == "POST"){
 		if(state){
 			float brightness = n->getBrightness();
-			while(brightness > .1f){
+			while(brightness > .0f){
 				brightness -= .01f;
 //				printf("Decreasing: %f\n", brightness);
 				n->setBrightness(brightness);
@@ -60,7 +60,7 @@ void controller::toggle(){
 			float brightness = .1f;
 			n->setBrightness(.1f);
 			n->show();
-			while(brightness < .9f){
+			while(brightness < 1.f){
 				brightness += .01f;
 //				printf("Increasing... %f\n", brightness);
 				n->setBrightness(brightness);
