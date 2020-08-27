@@ -21,8 +21,14 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("/white", &controller::white, this);
 	dispatcher().assign("/rainbow", &controller::idleRainbow, this);
 	dispatcher().assign("/status", &controller::stripStatus, this);
+	dispatcher().assign("/stop", &controller::stopAnimation, this);
 	status = 0;
 	message = "Ready";
+}
+
+void controller::stopAnimation(){
+	animate = false;
+	stripStatus();
 }
 
 /**
@@ -139,6 +145,7 @@ void controller::stripStatus(){
 void controller::idleRainbow(){
 	n->setBrightness(.3f);
 	state = true;
+	animate = true;
 	while(animate){
 		n->rainbowCycle(5);
 	}
