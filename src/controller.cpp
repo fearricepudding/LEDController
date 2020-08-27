@@ -26,11 +26,6 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	message = "Ready";
 }
 
-void controller::stopAnimation(){
-	animate = false;
-	stripStatus();
-}
-
 /**
 * Show the status of the controller
 *
@@ -110,9 +105,7 @@ void controller::white(){
 	for(i=0;i<PIXELS;i++){
 		n->setPixelColor(i, 255, 255, 255);
 	}
-	n->setBrightness(1.f);
 	n->show();
-	state = true;
 	stripStatus();
 }
 
@@ -142,17 +135,14 @@ void controller::stripStatus(){
 *
 * @return void
 */
-void controller::idleRainbow(){
-	n->setBrightness(.3f);
-	state = true;
-	animate = true;
-	while(animate){
-		n->rainbowCycle(5);
-	}
+void controller::rainbow(){
+	n->rainbow(1);
+	n->show();
+	stripStatus();
 }
 
 void shutdown(){
-	printf("Shutting down");
+	std::cout << "Shutdown" << std::endl;
 	delete n;
 }
 
