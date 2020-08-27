@@ -131,14 +131,12 @@ unsigned char NeoPixel::setPixelColor(unsigned int pixel, Color_t c){
 
 bool NeoPixel::setBrightness(float b){
     if(b < 0) {
-        printf("Brightness can't be set below 0.\n");
-        return false;
-    }
-    if(b > 1) {
-        printf("Brightness can't be set above 1.\n");
-        return false;
-    }
-    brightness = b;
+        brightness = 0;
+    }else if(b > 1) {
+        brightness = 1;
+    }else{
+    	brightness = b;
+    };
     return true;
 }
 
