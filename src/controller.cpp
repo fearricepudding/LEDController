@@ -19,6 +19,8 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("/toggle", &controller::toggle, this);
 	dispatcher().assign("/brightness", &controller::setBrightness, this);
 	dispatcher().assign("/white", &controller::white, this);
+	dispatcher().assign("/rainbow", &controller::idleRainbow, this);
+	dispatcher().assign("/status", &controller::stripStatus, this);
 	status = 0;
 	message = "Ready";
 }
@@ -47,11 +49,11 @@ void controller::toggle(){
 		if(state){
 			float brightness = n->getBrightness();
 			while(brightness > .1f){
-				brightness -= .1f;
-				printf("Decreasing: %f\n", brightness);
+				brightness -= .01f;
+//				printf("Decreasing: %f\n", brightness);
 				n->setBrightness(brightness);
 				n->show();
-				usleep(50000);
+				usleep(10000);
 			}
 			state = false;
 		}else{
@@ -59,11 +61,11 @@ void controller::toggle(){
 			n->setBrightness(.1f);
 			n->show();
 			while(brightness < .9f){
-				brightness += .1f;
-				printf("Increasing... %f\n", brightness);
+				brightness += .01f;
+//				printf("Increasing... %f\n", brightness);
 				n->setBrightness(brightness);
 				n->show();
-				usleep(50000);
+				usleep(10000);
 			};
 			state = true;
 		};
@@ -79,24 +81,50 @@ void controller::toggle(){
 * @return void
 */
 void controller::setBrightness(){
+	if(request().request_method() == "POST"){
 	std::string postData = request().post((std::string)"data");
-
-	std::cout << postData << std::endl;
-	auto data = json::parse(postData);
-	response().out() << "End";
+	
+	}else{
+		response().status(403);
+		response().out() << "403 - Method Not Allowd";
+	}
 }	
 
+/**
+* Reset all LEDs to full white
+*
+* @return void
+*/
 void controller::white(){
 	int i;
 	for(i=0;i<PIXELS;i++){
 		n->setPixelColor(i, 255, 255, 255);
 	}
+	n->setBrightness(1.f);
 	n->show();
-	
-	json resp;
-	resp["status"] = "0";
-	response().out() << resp.dump();
-	printf("WHITE RESET");
+	state = true;
+	stripStatus();
+}
+
+/**
+* LEDStip Status
+*
+* @return void
+*/
+void controller::stripStatus(){
+	json r;
+	r["pixels"];
+	std::vector<Color_t> updateBuffer = n->getPixels();
+	int i;
+	for(i=0;i<PIXELS;i++){
+		r["pixels"][i]["r"] = updateBuffer[i].r;
+		r["pixels"][i]["g"] = updateBuffer[i].g;
+		r["pixels"][i]["b"] = updateBuffer[i].b;
+	}
+	r["state"] = state;
+	r["brightness"] = n->getBrightness();
+	r["animating"] = animate;
+	response().out() << r.dump();
 }
 
 /**
@@ -107,12 +135,13 @@ void controller::white(){
 void controller::idleRainbow(){
 	n->setBrightness(.3f);
 	state = true;
-	while(true){
-	    	n->rainbowCycle(5);
+	while(animate){
+		n->rainbowCycle(5);
 	}
 }
 
 void shutdown(){
+	printf("Shutting down");
 	delete n;
 }
 
@@ -124,4 +153,6 @@ int main(int argc,char ** argv){
     }catch(std::exception const &e){
         std::cerr<<e.what()<<std::endl;
     };
+    
+    shutdown();
 }

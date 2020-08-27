@@ -24,7 +24,7 @@
 */
 #include "ws2812-rpi.h"
 
-bool debug = false;
+bool debug = true;
 
 struct control_data_s* NeoPixel::ctl=0;
 uint8_t* NeoPixel::virtbase=0;
@@ -53,10 +53,9 @@ NeoPixel::~NeoPixel(){
 }
 
 void NeoPixel::begin(){};
-
 void NeoPixel::show(){
 	if(debug){
-		printf("Debug mode");
+		printf("Debug mode\n");
 	}else{
 		int i, j;
 		unsigned int LEDBuffeWordPos = 0;
@@ -65,7 +64,7 @@ void NeoPixel::show(){
 		unsigned char colorBit = 0;
 		unsigned int wireBit = 0;
 		Color_t color;
-		std::vector<Color_t> updateBuffer;
+		std::vector<Color_t> updateBuffer = LEDBuffer;
 
 		for(i=0; i<numLEDs; i++) {
 		    updateBuffer[i].r = LEDBuffer[i].r * brightness;
@@ -143,8 +142,14 @@ bool NeoPixel::setBrightness(float b){
     return true;
 }
 
-//Color_t* NeoPixel::getPixels(){ return &LEDBuffer[0]; }
-std::vector<Color_t> NeoPixel::getPixels(){ return LEDBuffer; }
+/**
+* Return pixels
+*
+*
+*/
+std::vector<Color_t> NeoPixel::getPixels(){ 
+	return LEDBuffer; 
+}
 
 float NeoPixel::getBrightness(){ return brightness; }
 

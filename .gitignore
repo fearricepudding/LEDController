@@ -1,2 +1,3 @@
 build
 src/ws2812-rpi.cpp
+test
