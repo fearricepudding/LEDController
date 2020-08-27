@@ -19,9 +19,9 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("/toggle", &controller::toggle, this);
 	dispatcher().assign("/brightness", &controller::setBrightness, this);
 	dispatcher().assign("/white", &controller::white, this);
-	dispatcher().assign("/rainbow", &controller::idleRainbow, this);
+	dispatcher().assign("/rainbow", &controller::rainbow, this);
 	dispatcher().assign("/status", &controller::stripStatus, this);
-	dispatcher().assign("/stop", &controller::stopAnimation, this);
+//	dispatcher().assign("/stop", &controller::stopAnimation, this);
 	status = 0;
 	message = "Ready";
 }

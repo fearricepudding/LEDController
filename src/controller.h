@@ -10,7 +10,7 @@ class controller: public cppcms::application{
 		void initLEDS();
 		void toggle();
 		void serveStatus();
-		void idleRainbow();
+		void rainbow();
 		void setBrightness();
 		void white();
 		void stripStatus();
