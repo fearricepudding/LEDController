@@ -6,6 +6,8 @@
 #include <cppcms/url_mapper.h>
 #include <cppcms/applications_pool.h>
 #include <nlohmann/json.hpp>
+#include <iostream>
+#include <string> 
 #include "ws2812-rpi.h"
 #include "controller.h"
 
@@ -51,7 +53,6 @@ void controller::toggle(){
 			float brightness = n->getBrightness();
 			while(brightness > .0f){
 				brightness -= .01f;
-//				printf("Decreasing: %f\n", brightness);
 				n->setBrightness(brightness);
 				n->show();
 				usleep(10000);
@@ -59,11 +60,8 @@ void controller::toggle(){
 			state = false;
 		}else{
 			float brightness = .1f;
-			n->setBrightness(.1f);
-			n->show();
 			while(brightness < 1.f){
 				brightness += .01f;
-//				printf("Increasing... %f\n", brightness);
 				n->setBrightness(brightness);
 				n->show();
 				usleep(10000);
@@ -84,11 +82,25 @@ void controller::toggle(){
 */
 void controller::setBrightness(){
 	if(request().request_method() == "POST"){
-//		std::string postData = request().post((std::string)"data");
-
-		std::pair<void *,size_t> data = request().raw_post_data();
-		std::string postdata(reinterpret_cast<char *>(data.first),data.second);
+		std::string postdata = request().post((std::string)"data");
 		std::cout << postdata << std::endl;
+		try{
+			float subbright = std::stof(postdata);
+			float setBrightness;
+			if(subbright < 0){
+				setBrightness = 0;
+			}else if(subbright > 1){
+				setBrightness = 1;
+			}else{
+				setBrightness = subbright;
+			};
+			std::cout << setBrightness << std::endl;
+			n->setBrightness(setBrightness);
+		}catch(std::invalid_argument e){
+			
+			std::cout << "Number error - Brightness submit not a number" << std::endl;
+		}
+		stripStatus();
 	}else{
 		response().status(403);
 		response().out() << "403 - Method Not Allowd";
@@ -147,6 +159,7 @@ void shutdown(){
 }
 
 int main(int argc,char ** argv){
+	std::cout << "Starting controller" << std::endl;
     try{
         cppcms::service app(argc,argv);
         app.applications_pool().mount(cppcms::applications_factory<controller>());

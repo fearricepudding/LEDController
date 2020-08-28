@@ -75,7 +75,7 @@ public:
 
     static Color_t wheel(uint8_t wheelPos);
     void colorWipe(Color_t c, uint8_t wait);
-    void rainbow(uint8_t wait);
+    void rainbow();
     void rainbowCycle(uint8_t wait);
     void theaterChase(Color_t c, uint8_t wait);
     void theaterChaseRainbow(uint8_t wait);

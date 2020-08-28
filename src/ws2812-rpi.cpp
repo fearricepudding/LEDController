@@ -497,15 +497,13 @@ void NeoPixel::colorWipe(Color_t c, uint8_t wait) {
     }
 }
 
-void NeoPixel::rainbow(uint8_t wait) {
+void NeoPixel::rainbow() {
     uint16_t i, j;
 
     for(j=0; j<256; j++) {
         for(i=0; i<numPixels(); i++) {
             setPixelColor(i, wheel((i+j) & 255));
         }
-        show();
-        usleep(wait * 1000);
     }
 }
 
