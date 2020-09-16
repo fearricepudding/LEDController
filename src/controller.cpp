@@ -71,10 +71,10 @@ void controller::toggle(){
 		stripStatus();
 	}else{
 		response().status(403);
-		response().out() << "403 - Method Not Allowd";
+		response().out() << "403 - Method Not Allowed";
 	};
 }
-
+	
 /**
 * Set brightness of the strip
 *
@@ -103,8 +103,8 @@ void controller::setBrightness(){
 		stripStatus();
 	}else{
 		response().status(403);
-		response().out() << "403 - Method Not Allowd";
-	}
+		response().out() << "403 - Method Not Allowed";
+	};
 }	
 
 /**
@@ -113,12 +113,17 @@ void controller::setBrightness(){
 * @return void
 */
 void controller::white(){
-	int i;
-	for(i=0;i<PIXELS;i++){
-		n->setPixelColor(i, 255, 255, 255);
-	}
-	n->show();
-	stripStatus();
+	if(request().request_method() == "POST"){
+		int i;
+		for(i=0;i<PIXELS;i++){
+			n->setPixelColor(i, 255, 255, 255);
+		}
+		n->show();
+		stripStatus();
+	}else{
+		response().status(403);
+		response().out() << "403 - Method not Allowed";
+	};
 }
 
 /**
@@ -148,9 +153,14 @@ void controller::stripStatus(){
 * @return void
 */
 void controller::rainbow(){
-	n->rainbow(1);
-	n->show();
-	stripStatus();
+	if(request().request_method() == "POST"){
+		n->rainbow();
+		n->show();
+		stripStatus();
+	}else{
+		response().status(403);
+		response().out() << "403 - Method Not Allowed";	
+	}
 }
 
 void shutdown(){

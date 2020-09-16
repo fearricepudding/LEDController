@@ -626,7 +626,6 @@ void NeoPixel::effectsDemo() {
     theaterChase(Color(127, 127, 127), 50); // White
     theaterChase(Color(127,   0,   0), 50); // Red
     theaterChase(Color(  0,   0, 127), 50); // Blue
-    rainbow(5);
     rainbowCycle(5);
     theaterChaseRainbow(50);
 
