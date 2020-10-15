@@ -20,11 +20,15 @@
 # You should have received a copy of the GNU General Public License           #
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 #                                                                             #
+#																			  #
+# Modified by FEARricepudding <jordanrandles@googlemail.com>                  #
+#																			  #
+#                                                                             #
 ###############################################################################
 */
 #include "ws2812-rpi.h"
 
-bool debug = true;
+bool debug = false;
 
 struct control_data_s* NeoPixel::ctl=0;
 uint8_t* NeoPixel::virtbase=0;

@@ -14,4 +14,5 @@ class controller: public cppcms::application{
 		void setBrightness();
 		void white();
 		void stripStatus();
+		void newPixels();
 };

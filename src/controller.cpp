@@ -10,6 +10,7 @@
 #include <string> 
 #include "ws2812-rpi.h"
 #include "controller.h"
+#include <json/json.h>
 
 using json = nlohmann::json;
 #define PIXELS 191
@@ -23,9 +24,36 @@ controller::controller(cppcms::service &srv): cppcms::application(srv){
 	dispatcher().assign("/white", &controller::white, this);
 	dispatcher().assign("/rainbow", &controller::rainbow, this);
 	dispatcher().assign("/status", &controller::stripStatus, this);
+	dispatcher().assign("/newPixels", &controller::newPixels, this);
 //	dispatcher().assign("/stop", &controller::stopAnimation, this);
 	status = 0;
 	message = "Ready";
+}
+
+void controller::newPixels(){
+	if(request().request_method() == "POST"){
+		std::string postdata = request().post((std::string)"pixels");
+//		std::cout << postdata << std::endl;
+		
+		Json::Value root;
+		Json::Reader reader;
+		bool parsingSuccessful = reader.parse( postdata, root );
+		if ( !parsingSuccessful ){
+		    std::cout << "Error parsing the string" << std::endl;
+   		}
+   		Json::Value newPixels = root;
+
+		for ( int index = 0; index < newPixels.size(); ++index ){
+		    n->setPixelColor(index, newPixels[index]["r"].asInt(), newPixels[index]["g"].asInt(), newPixels[index]["b"].asInt());
+		}
+		
+		n->show();
+		
+		response().out() << "End";
+	}else{
+		response().status(403);
+		response().out() << "403 - Method Not Allowed";
+	}
 }
 
 /**
