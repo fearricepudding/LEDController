@@ -87,6 +87,9 @@ public:
 
     void effectsDemo();
     
+    std::vector<Color_t> LEDBuffer;
+    float brightness;
+    
 private:
     static void printBinary(unsigned int i, unsigned int bits);
     static unsigned int reverseWord(unsigned int word);
@@ -111,8 +114,7 @@ private:
     void startTransfer();
 
     unsigned int numLEDs;
-    std::vector<Color_t> LEDBuffer;
-    float brightness;
+    
     unsigned int PWMWaveform[NUM_DATA_WORDS];
 
     static struct control_data_s *ctl;

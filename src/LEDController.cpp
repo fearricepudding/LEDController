@@ -22,7 +22,6 @@ std::string LEDController::newMessage(std::string msg){
 	std::cout << "new message: |" << msg << "|" << std::endl;
 	
 	if(msg == "stop"){
-		std::cout << "Kill server" << std::endl;
 		ac->Stop();
 	}
 	else if(msg == "start"){

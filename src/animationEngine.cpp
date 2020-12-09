@@ -6,6 +6,8 @@
 #include <string>
 #include "animationEngine.h"
 #include "tcp_server.h"
+#include "ws2812-rpi-defines.h"
+#include <sys/types.h>
 #include "ws2812-rpi.h"
 
 AnimationEngine::AnimationEngine(){
@@ -25,7 +27,6 @@ void AnimationEngine::DisplayNextFrame(){
     m_frame++;
     currentFrame = m_frame;
     m_frameMutex.unlock();
-    std::cout << "Frame" << currentFrame<< std::endl;
     
     //XXX FRAME ENGINE
     // XXX: TODO: Actual frame engine...
@@ -33,6 +34,8 @@ void AnimationEngine::DisplayNextFrame(){
     
     // XXX: TEMP SHOW
      uint16_t i, j;
+/*
+//rainbow cycle
 
     for(j=0; j<256*5; j++) {
         for(i=0; i < strip->numPixels(); i++) {
@@ -40,8 +43,14 @@ void AnimationEngine::DisplayNextFrame(){
         }
         strip->show();
     }
-    
-    
+*/
+	std::vector<Color_t> colours = strip->getPixels();
+
+    for(i=1; i < strip->numPixels(); i++) {
+    	colours[i] = colours[i-1];
+    };
+    strip->LEDBuffer = colours;
+    strip->show();
         
     //XXX END OF FRAME ENGINE
 }
