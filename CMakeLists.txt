@@ -1,16 +1,28 @@
-PROJECT(LEDController)
-cmake_minimum_required(VERSION 2.8.11)
+PROJECT(sockets)
+cmake_minimum_required(VERSION 3.18)
 
-include_directories(include /usr/local/include /usr/include/python3.7m -I/usr/include/python3.7m)
-link_directories(/usr/local/lib)
 
-find_package(nlohmann_json 3.2.0 REQUIRED)
+include_directories(/usr/local/include /usr/include)
+link_directories(/usr/local/lib /usr/lib)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+SET(Boost_USE_STATIC_LIBS OFF)
+SET(Boost_USE_MULTITHREAD OFF)
 
-file(GLOB LEDController_src
-	"src/*.cpp"
+find_package(Boost COMPONENTS thread system REQUIRED)
+
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+  
+add_executable(server 
+	src/LEDController.cpp
+	src/LEDController.h
+    src/tcp_server.cpp
+    src/tcp_server.h
+    src/tcp_connection.cpp
+    src/tcp_connection.h
+	src/animationEngine.cpp
+	src/animationEngine.h
 )
-add_executable(LEDController ${LEDController_src})
-#-lpython3.7m -lcrypt -lpthread -ldl  -lutil -lm 
-target_link_libraries(LEDController cppcms nlohmann_json::nlohmann_json booster dl pcre z pthread jsoncpp)
+
+target_link_libraries(server ${Boost_LIBRARIES})
