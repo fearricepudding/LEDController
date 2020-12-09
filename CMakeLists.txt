@@ -23,6 +23,9 @@ add_executable(server
     src/tcp_connection.h
 	src/animationEngine.cpp
 	src/animationEngine.h
+	src/ws2812-rpi.cpp
+	src/ws2812-rpi.h
+	src/ws2812-rpi-defines.h
 )
 
 target_link_libraries(server ${Boost_LIBRARIES})

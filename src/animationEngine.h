@@ -1,25 +1,28 @@
 #ifndef ANIMATIONENGINE_H_INCLUDED
 #define ANIMATIONENGINE_H_INCLUDED
 
+#define PIXELS 191 // # of pixels in strip
+
+#include "ws2812-rpi.h"
 #include <boost/thread.hpp>
 
 class AnimationEngine{
 private:
-	boost::thread* m_thread; // The thread runs this object
-	int m_frame; // The current frame number
-	bool m_mustStop;
-    boost::mutex m_frameMutex;
-    boost::mutex m_mustStopMutex;
-	void DisplayNextFrame();
-	boost::thread* thr;
+	boost::thread* m_thread; 				// The thread runs this object
+	int m_frame; 							// The current frame number
+	bool m_mustStop;						// Stop Command
+    boost::mutex m_frameMutex;				// Current frame mutex
+    boost::mutex m_mustStopMutex;			// Must stop mutex
+	void DisplayNextFrame();				// run next frame
+	boost::thread* thr;						// This thread
+	NeoPixel *strip = new NeoPixel(PIXELS);	// LED strip controller
 
 public:
-	// Default constructor
-	AnimationEngine();
-    ~AnimationEngine();
-    void Start();
-	void Stop();
-    void animate();
+	AnimationEngine();		// Constructor
+    ~AnimationEngine();		// Destructor
+    void Start();			// Start the thread
+	void Stop();			// stop the thread
+    void animate();			// Thread animation loop
 };
 
 

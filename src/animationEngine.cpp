@@ -1,12 +1,12 @@
 #include <boost/thread.hpp>
-#include <iostream>
+#include <boost/asio.hpp>
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
 #include <string>
-#include <boost/asio.hpp>
 #include "animationEngine.h"
 #include "tcp_server.h"
+#include "ws2812-rpi.h"
 
 AnimationEngine::AnimationEngine(){
     m_thread=NULL;
@@ -20,10 +20,30 @@ AnimationEngine::~AnimationEngine(){
 
 void AnimationEngine::DisplayNextFrame(){
     // Simulate next frame
+    int currentFrame = 0;
     m_frameMutex.lock();
     m_frame++;
+    currentFrame = m_frame;
     m_frameMutex.unlock();
-    std::cout << "Frame" << std::endl;
+    std::cout << "Frame" << currentFrame<< std::endl;
+    
+    //XXX FRAME ENGINE
+    // XXX: TODO: Actual frame engine...
+    
+    
+    // XXX: TEMP SHOW
+     uint16_t i, j;
+
+    for(j=0; j<256*5; j++) {
+        for(i=0; i < strip->numPixels(); i++) {
+            strip->setPixelColor(i, strip->wheel(((i * 256 / strip->numPixels()) + j) & 255));
+        }
+        strip->show();
+    }
+    
+    
+        
+    //XXX END OF FRAME ENGINE
 }
 
 void AnimationEngine::Start(){

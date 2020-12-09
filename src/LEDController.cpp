@@ -9,17 +9,14 @@
 #include "LEDController.h"
 #include "tcp_server.h"
 
-
 LEDController* LEDController::instance = NULL;
 
 LEDController* LEDController::getInstance()
 {
    if (!instance)   // Only allow one instance of class to be generated.
       instance = new LEDController;
-
    return instance;
 }
-
 
 std::string LEDController::newMessage(std::string msg){
 	std::cout << "new message: |" << msg << "|" << std::endl;
@@ -54,6 +51,7 @@ void LEDController::startListening(){
 		std::cerr << "Exception: " << e.what() << "\n";
 	  }
 }
+
 
 int main(int argc, char* argv[]){
     std::cout << "Starting" << std::endl;
