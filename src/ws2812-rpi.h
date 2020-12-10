@@ -87,10 +87,12 @@ public:
 
     void effectsDemo();
     
-    std::vector<Color_t> LEDBuffer;
-    float brightness;
+   
     
 private:
+	std::vector<Color_t> LEDBuffer;
+    float brightness;
+    
     static void printBinary(unsigned int i, unsigned int bits);
     static unsigned int reverseWord(unsigned int word);
 

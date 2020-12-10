@@ -18,7 +18,7 @@ LEDController* LEDController::getInstance()
    return instance;
 }
 
-std::string LEDController::newMessage(std::string msg){
+void LEDController::newMessage(std::string msg){
 	std::cout << "new message: |" << msg << "|" << std::endl;
 	
 	if(msg == "stop"){

@@ -32,24 +32,11 @@ void AnimationEngine::DisplayNextFrame(){
     // XXX: TODO: Actual frame engine...
     
     
-    // XXX: TEMP SHOW
-     uint16_t i, j;
-/*
-//rainbow cycle
-
-    for(j=0; j<256*5; j++) {
-        for(i=0; i < strip->numPixels(); i++) {
-            strip->setPixelColor(i, strip->wheel(((i * 256 / strip->numPixels()) + j) & 255));
-        }
-        strip->show();
+    Color_t curPixel;
+    for(int i = 1; i < strip->numPixels(); i++){
+    	curPixel = strip->getPixelColor(i);
+    	strip->setPixelColor(i-1, curPixel);
     }
-*/
-	std::vector<Color_t> colours = strip->getPixels();
-
-    for(i=1; i < strip->numPixels(); i++) {
-    	colours[i] = colours[i-1];
-    };
-    strip->LEDBuffer = colours;
     strip->show();
         
     //XXX END OF FRAME ENGINE

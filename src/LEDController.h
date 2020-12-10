@@ -6,7 +6,7 @@ private:
 	static LEDController* instance;					// singleton instance
 public:
 	static LEDController* getInstance();			// return singleton
-	std::string newMessage(std::string);			// recieve message from tcp
+	void newMessage(std::string);			// recieve message from tcp
 	AnimationEngine *ac = new AnimationEngine();	// animation loop
 	void startLoop();								// start animation loop
 	void stopLoop();								// stop animation loop
