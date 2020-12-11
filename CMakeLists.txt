@@ -26,6 +26,8 @@ add_executable(server
 	src/ws2812-rpi.cpp
 	src/ws2812-rpi.h
 	src/ws2812-rpi-defines.h
+	src/udpServer.h
+	src/udpServer.cpp
 )
 
 target_link_libraries(server ${Boost_LIBRARIES})

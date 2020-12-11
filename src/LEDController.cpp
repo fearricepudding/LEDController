@@ -8,6 +8,7 @@
 #include "animationEngine.h"
 #include "LEDController.h"
 #include "tcp_server.h"
+#include "udpServer.h"
 
 LEDController* LEDController::instance = NULL;
 
@@ -40,15 +41,17 @@ void LEDController::stopLoop(){
 }
 
 void LEDController::startListening(){
-	try{
-		boost::asio::io_context io_context;
-		tcp::endpoint listen_endpoint(tcp::v4(), 999);
-		udp::endpoint broadcast_endpoint(boost::asio::ip::make_address("0.0.0.0"), 9999);
-		server s(io_context, listen_endpoint, broadcast_endpoint);
-		io_context.run();
-	  }catch (std::exception& e){
-		std::cerr << "Exception: " << e.what() << "\n";
-	  }
+//	try{
+//		boost::asio::io_context io_context;
+//		tcp::endpoint listen_endpoint(tcp::v4(), 999);
+//		udp::endpoint broadcast_endpoint(boost::asio::ip::make_address("0.0.0.0"), 9999);
+//		server s(io_context, listen_endpoint, broadcast_endpoint);
+//		io_context.run();
+//	  }catch (std::exception& e){
+//		std::cerr << "Exception: " << e.what() << "\n";
+//	  }
+
+	udp->listen();
 }
 
 
