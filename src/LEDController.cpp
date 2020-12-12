@@ -11,6 +11,24 @@
 
 
 
+struct RGB{
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
+};
+
+
+struct RGB LEDController::colorConverter(int hexValue){
+  struct RGB rgbColor;
+  rgbColor.r = ((hexValue >> 16) & 0xFF) / 255.0;  // Extract the RR byte
+  rgbColor.g = ((hexValue >> 8) & 0xFF) / 255.0;   // Extract the GG byte
+  rgbColor.b = ((hexValue) & 0xFF) / 255.0;        // Extract the BB byte
+
+  return rgbColor; 
+}
+
+
+
 //-----------------
 
 std::string ToHex(const std::string& s, bool upper_case /* = true */)
@@ -68,8 +86,8 @@ void LEDController::newMessage(std::string msg){
 			std::cout << "New buffer incorrect size. expected 1146 recieved " << newBufferLength << std::endl;
 			return;
 		}
-		
-		
+		std::vector<Color_t> newColorBuffer = hexString2Color_t(newBuffer);
+		ac->replaceBuffer(newColorBuffer);
 	}
 	else
 	{
@@ -79,24 +97,22 @@ void LEDController::newMessage(std::string msg){
 }
 
 std::vector<Color_t> LEDController::hexString2Color_t(std::string hexString){
-	for(int i = 0; i < (hexString.length()/6); i++){
+	std::vector<Color_t> newBuffer; 
+	for(int i = 0; i < (hexString.length()); i+=6){
 		std::string currentHex = hexString.substr(i, i+6);
 		unsigned int hexint;
 		std::stringstream tmp;
 		tmp << std::hex << currentHex;
 		tmp >> hexint;
-		RGB values = colorConverter(hexint
+		RGB values = colorConverter(hexint);
+		Color_t newColor(values.r, values.g, values.b);
+		newBuffer.push_back(newColor);
 	}
+	std::cout << newBuffer.size() << std::endl;
+	return newBuffer;
 }
 
-struct RGB LEDController::colorConverter(int hexValue){
-  struct RGB rgbColor;
-  rgbColor.r = ((hexValue >> 16) & 0xFF) / 255.0;  // Extract the RR byte
-  rgbColor.g = ((hexValue >> 8) & 0xFF) / 255.0;   // Extract the GG byte
-  rgbColor.b = ((hexValue) & 0xFF) / 255.0;        // Extract the BB byte
 
-  return rgbColor; 
-}
 
 void LEDController::startLoop(){
     ac->Start();

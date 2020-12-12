@@ -19,8 +19,10 @@ AnimationEngine::~AnimationEngine(){
     if (m_thread!=NULL) m_thread->join();
 }
 
-void AnimationEngine::replaceBuffer(std::vector<Color_t>){
+void AnimationEngine::replaceBuffer(std::vector<Color_t> newBuffer){
 	std::cout << "New Buffer" << std::endl;
+	strip->LEDBuffer = newBuffer;
+	update();
 }
 
 void AnimationEngine::update(){
