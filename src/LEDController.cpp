@@ -84,14 +84,11 @@ LEDController* LEDController::getInstance()
 }
 
 void LEDController::newMessage(std::string msg){
-	//std::cout << "new message: |" << msg << "|" << std::endl;
 	// XXX: Hex commands
 	// 0A start animation
 	// 0B stop animation
 	// 0C toggle LEDS
 	std::string command = msg.substr(0, 2);
-	
-	std::cout << "|" << command << "|" << std::endl;
 	
 	if(command == "0A"){
 		std::cout << "start anim" << std::endl;
@@ -105,7 +102,6 @@ void LEDController::newMessage(std::string msg){
 		std::cout << "Toggle LEDs" << std::endl;
 	}
 	else if(command == "0D"){
-		std::cout << "swap buffer" << std::endl;
 		std::string newBuffer = msg.substr(2, msg.length()-1); // get payload
 		// confirm we have all data
 		int newBufferLength = newBuffer.length();
@@ -129,10 +125,8 @@ std::vector<Color_t> LEDController::hexString2Color_t(std::string hexString){
 		std::string currentHex = hexString.substr(i, 6);
 		RGB values = hex2rgb(currentHex);
 		Color_t newColor(values.r, values.g, values.b);
-		std::cout << values.r << std::endl << values.g << std::endl << values.b << std::endl << "----" << std::endl; 
 		newBuffer.push_back(newColor);
 	}
-	std::cout << newBuffer.size() << std::endl;
 	return newBuffer;
 }
 
