@@ -7,8 +7,27 @@
 #include <sstream>
 #include "animationEngine.h"
 #include "LEDController.h"
-#include "tcp_server.h"
 #include "udpServer.h"
+
+
+
+//-----------------
+
+std::string ToHex(const std::string& s, bool upper_case /* = true */)
+{
+    std::ostringstream ret;
+
+    for (std::string::size_type i = 0; i < s.length(); ++i)
+        ret << std::hex << std::setfill('0') << std::setw(2) << (upper_case ? std::uppercase : std::nouppercase) << (int)s[i];
+
+    return ret.str();
+}
+
+int FromHex(const std::string &s) { return strtoul(s.c_str(), NULL, 16); }
+
+//-----------------
+
+
 
 LEDController* LEDController::instance = NULL;
 
@@ -20,16 +39,63 @@ LEDController* LEDController::getInstance()
 }
 
 void LEDController::newMessage(std::string msg){
-	std::cout << "new message: |" << msg << "|" << std::endl;
+	//std::cout << "new message: |" << msg << "|" << std::endl;
+	// XXX: Hex commands
+	// 0A start animation
+	// 0B stop animation
+	// 0C toggle LEDS
+	std::string command = msg.substr(0, 2);
 	
-	if(msg == "stop"){
-		ac->Stop();
+	std::cout << "|" << command << "|" << std::endl;
+	
+	if(command == "0A"){
+		std::cout << "start anim" << std::endl;
+		
+		//ac->toggle();
 	}
-	else if(msg == "start"){
-		ac->Start();
-	}else{
-		std::cout << "Unknown command" << std::endl;
+	else if(command == "0B"){
+		std::cout << "stop anim" << std::endl;
 	}
+	else if(command == "0C"){
+		std::cout << "Toggle LEDs" << std::endl;
+	}
+	else if(command == "0D"){
+		std::cout << "swap buffer" << std::endl;
+		std::string newBuffer = msg.substr(2, msg.length()-1); // get payload
+		// confirm we have all data
+		int newBufferLength = newBuffer.length();
+		if((newBufferLength/6) != 191){
+			std::cout << "New buffer incorrect size. expected 1146 recieved " << newBufferLength << std::endl;
+			return;
+		}
+		
+		
+	}
+	else
+	{
+		std::cout << "Command not found" << std::endl;
+	};
+	
+}
+
+std::vector<Color_t> LEDController::hexString2Color_t(std::string hexString){
+	for(int i = 0; i < (hexString.length()/6); i++){
+		std::string currentHex = hexString.substr(i, i+6);
+		unsigned int hexint;
+		std::stringstream tmp;
+		tmp << std::hex << currentHex;
+		tmp >> hexint;
+		RGB values = colorConverter(hexint
+	}
+}
+
+struct RGB LEDController::colorConverter(int hexValue){
+  struct RGB rgbColor;
+  rgbColor.r = ((hexValue >> 16) & 0xFF) / 255.0;  // Extract the RR byte
+  rgbColor.g = ((hexValue >> 8) & 0xFF) / 255.0;   // Extract the GG byte
+  rgbColor.b = ((hexValue) & 0xFF) / 255.0;        // Extract the BB byte
+
+  return rgbColor; 
 }
 
 void LEDController::startLoop(){
@@ -41,28 +107,14 @@ void LEDController::stopLoop(){
 }
 
 void LEDController::startListening(){
-//	try{
-//		boost::asio::io_context io_context;
-//		tcp::endpoint listen_endpoint(tcp::v4(), 999);
-//		udp::endpoint broadcast_endpoint(boost::asio::ip::make_address("0.0.0.0"), 9999);
-//		server s(io_context, listen_endpoint, broadcast_endpoint);
-//		io_context.run();
-//	  }catch (std::exception& e){
-//		std::cerr << "Exception: " << e.what() << "\n";
-//	  }
-
 	udp->listen();
 }
 
-
 int main(int argc, char* argv[]){
     std::cout << "Starting" << std::endl;
-
     LEDController *ledc = LEDController::getInstance();
-    ledc->startLoop();
+    //ledc->startLoop();
     ledc->startListening();
-    
-      
 	return 0;
 }
 

@@ -23,6 +23,8 @@ public:
     void Start();			// Start the thread
 	void Stop();			// stop the thread
     void animate();			// Thread animation loop
+    void replaceBuffer(std::vector<Color_t>);
+    void update();
 };
 
 

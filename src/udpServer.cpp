@@ -57,12 +57,12 @@ void UdpServer::recieve(){
                  
     buffer[n] = '\0'; 
     
-    std::cout << "d: " << buffer << std::endl;
+    //std::cout << "d: " << buffer << std::endl;
     send((char *)"ok");
     
     std::string  msg(buffer);
-    int buflen = msg.length();
-    msg = msg.substr(0, buflen-1);
+//    int buflen = msg.length();
+//    msg = msg.substr(0, buflen-1);
     
     LEDController *ledc = LEDController::getInstance();
     ledc->newMessage(msg);

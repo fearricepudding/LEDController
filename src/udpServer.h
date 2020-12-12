@@ -2,7 +2,7 @@
 #define UDPSERVER_H_INCLUDED
 
 #define PORT     8080 
-#define MAXLINE 1024 
+#define MAXLINE 2048 
 
 class UdpServer{
 public:

@@ -17,10 +17,6 @@ LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 add_executable(server 
 	src/LEDController.cpp
 	src/LEDController.h
-    src/tcp_server.cpp
-    src/tcp_server.h
-    src/tcp_connection.cpp
-    src/tcp_connection.h
 	src/animationEngine.cpp
 	src/animationEngine.h
 	src/ws2812-rpi.cpp

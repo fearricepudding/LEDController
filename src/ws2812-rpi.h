@@ -87,10 +87,9 @@ public:
 
     void effectsDemo();
     
-   
-    
+   std::vector<Color_t> LEDBuffer;
+
 private:
-	std::vector<Color_t> LEDBuffer;
     float brightness;
     
     static void printBinary(unsigned int i, unsigned int bits);

@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <string>
 #include "animationEngine.h"
-#include "tcp_server.h"
 #include "ws2812-rpi-defines.h"
 #include <sys/types.h>
 #include "ws2812-rpi.h"
@@ -20,6 +19,14 @@ AnimationEngine::~AnimationEngine(){
     if (m_thread!=NULL) m_thread->join();
 }
 
+void AnimationEngine::replaceBuffer(std::vector<Color_t>){
+	std::cout << "New Buffer" << std::endl;
+}
+
+void AnimationEngine::update(){
+	strip->show();
+}
+
 void AnimationEngine::DisplayNextFrame(){
     // Simulate next frame
     int currentFrame = 0;
@@ -28,18 +35,15 @@ void AnimationEngine::DisplayNextFrame(){
     currentFrame = m_frame;
     m_frameMutex.unlock();
     
-    //XXX FRAME ENGINE
-    // XXX: TODO: Actual frame engine...
+    // XXX: TODO: Actual animating
     
-    
-    Color_t curPixel;
-    for(int i = 1; i < strip->numPixels(); i++){
-    	curPixel = strip->getPixelColor(i);
-    	strip->setPixelColor(i-1, curPixel);
-    }
-    strip->show();
+//    Color_t curPixel;
+//    for(int i = 1; i < strip->numPixels(); i++){
+//    	curPixel = strip->getPixelColor(i);
+//    	strip->setPixelColor(i-1, curPixel);
+//    }
+//    strip->show();
         
-    //XXX END OF FRAME ENGINE
 }
 
 void AnimationEngine::Start(){
