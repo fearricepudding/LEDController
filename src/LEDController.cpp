@@ -12,21 +12,48 @@
 
 
 struct RGB{
-	unsigned int r;
-	unsigned int g;
-	unsigned int b;
+	short r;
+	short g;
+	short b;
 };
 
+std::vector<std::string> SplitWithCharacters(const std::string& str, int splitLength) {
+  int NumSubstrings = str.length() / splitLength;
+  std::vector<std::string> ret;
 
-struct RGB LEDController::colorConverter(int hexValue){
-  struct RGB rgbColor;
-  rgbColor.r = ((hexValue >> 16) & 0xFF) / 255.0;  // Extract the RR byte
-  rgbColor.g = ((hexValue >> 8) & 0xFF) / 255.0;   // Extract the GG byte
-  rgbColor.b = ((hexValue) & 0xFF) / 255.0;        // Extract the BB byte
+  for (int i = 0; i < NumSubstrings; i++) {
+     ret.push_back(str.substr(i * splitLength, splitLength));
+  }
 
-  return rgbColor; 
+  // If there are leftover characters, create a shorter item at the end.
+  if (str.length() % splitLength != 0) {
+      ret.push_back(str.substr(splitLength * NumSubstrings));
+  }
+
+
+  return ret;
 }
 
+
+RGB hex2rgb(std::string hex) {
+  RGB color;
+
+  if(hex.at(0) == '#') {
+      hex.erase(0, 1);
+  }
+
+  while(hex.length() != 6) {
+      hex += "0";
+  }
+
+  std::vector<std::string> colori=SplitWithCharacters(hex,2);
+
+  color.r = stoi(colori[0],nullptr,16);
+  color.g = stoi(colori[1],nullptr,16);
+  color.b = stoi(colori[2],nullptr,16);
+
+  return color;
+}
 
 
 //-----------------
@@ -100,13 +127,9 @@ std::vector<Color_t> LEDController::hexString2Color_t(std::string hexString){
 	std::vector<Color_t> newBuffer; 
 	for(int i = 0; i < (hexString.length()); i+=6){
 		std::string currentHex = hexString.substr(i, 6);
-		std::cout << currentHex << std::endl;
-		unsigned int hexint;
-		std::stringstream tmp;
-		tmp << std::hex << currentHex;
-		tmp >> hexint;
-		RGB values = colorConverter(hexint);
+		RGB values = hex2rgb(currentHex);
 		Color_t newColor(values.r, values.g, values.b);
+		std::cout << values.r << std::endl << values.g << std::endl << values.b << std::endl << "----" << std::endl; 
 		newBuffer.push_back(newColor);
 	}
 	std::cout << newBuffer.size() << std::endl;

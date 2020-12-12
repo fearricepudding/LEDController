@@ -21,7 +21,7 @@ AnimationEngine::~AnimationEngine(){
 
 void AnimationEngine::replaceBuffer(std::vector<Color_t> newBuffer){
 	std::cout << "New Buffer" << std::endl;
-	strip->setBrightness(1.0);
+	strip->setBrightness(1.);
 	strip->LEDBuffer = newBuffer;
 	update();
 }
