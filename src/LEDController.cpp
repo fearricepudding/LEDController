@@ -99,7 +99,8 @@ void LEDController::newMessage(std::string msg){
 std::vector<Color_t> LEDController::hexString2Color_t(std::string hexString){
 	std::vector<Color_t> newBuffer; 
 	for(int i = 0; i < (hexString.length()); i+=6){
-		std::string currentHex = hexString.substr(i, i+6);
+		std::string currentHex = hexString.substr(i, 6);
+		std::cout << currentHex << std::endl;
 		unsigned int hexint;
 		std::stringstream tmp;
 		tmp << std::hex << currentHex;
