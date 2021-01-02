@@ -1,11 +1,1 @@
-UDP commands
-
-first 4 chars are command
-read until end char(**)
-
-cmd      payload        end
-
-stop
-strt
-swap     json string    **
-anim				    **
+Stream led frames over UDP - 0C + HEX color for each LED (00FF00)
