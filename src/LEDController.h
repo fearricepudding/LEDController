@@ -6,9 +6,12 @@
 
 class LEDController{
 private: 
-	static LEDController* instance;					// singleton instance
-	std::vector<Color_t> hexString2Color_t(std::string);
-	struct RGB colorConverter(int hexValue);
+	static LEDController* instance;					
+	
+	struct RGB colorConverter(int hexValue);	
+	std::string ToHex(const std::string&, bool);
+	int FromHex(const std::string&);
+
 public:
 	static LEDController* getInstance();			// return singleton
 	void newMessage(std::string);			        // recieve message from tcp

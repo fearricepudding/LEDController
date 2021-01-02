@@ -45,25 +45,24 @@ NeoPixel::NeoPixel(unsigned int n)
 {
     LEDBuffer.resize(n);
     
-    if(!debug){
-		brightness=DEFAULT_BRIGHTNESS;
-		initHardware();
-		clearLEDBuffer();
+    if(debug){
+        // TODO Create visual led app
+        return;
     };
+
+	brightness=DEFAULT_BRIGHTNESS;
+	initHardware();
+	clearLEDBuffer();    
 }
 
 NeoPixel::~NeoPixel(){
     terminate(0);
-    //delete LEDBuffer;
 }
 
 void NeoPixel::begin(){};
 void NeoPixel::show(){
-	
-	// Output pixel data if debug mode
 	if(debug){
-		
-		std::cout << "Debug mode" << std::endl;
+        std::cout << "debug show" << std::endl;
 		return;
 	};
 
