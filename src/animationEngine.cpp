@@ -52,7 +52,6 @@ std::vector<std::string> AnimationEngine::SplitWithCharacters(const std::string&
     return ret; 
 }
 
-
 RGB AnimationEngine::hex2rgb(std::string hex) {
     RGB color;
     if(hex.at(0) == '#') {
@@ -67,8 +66,6 @@ RGB AnimationEngine::hex2rgb(std::string hex) {
     color.b = stoi(colori[2],nullptr,16);
     return color;
 }
-
-
 
 std::vector<Color_t> AnimationEngine::hexString2Color_t(std::string hexString){
     std::vector<Color_t> newBuffer; 
@@ -119,7 +116,6 @@ void AnimationEngine::processCommand(){
     };
 
 }
-
 
 void AnimationEngine::Start(){
 	m_mustStopMutex.lock();
