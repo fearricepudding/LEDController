@@ -34,8 +34,7 @@ void UdpServer::listen(){
       
     // Bind the socket with the server address 
     if ( bind(sockfd, (const struct sockaddr *)&servaddr,  
-            sizeof(servaddr)) < 0 ) 
-    { 
+            sizeof(servaddr)) < 0 ) { 
         std::cout << "Error occured binding port" << std::endl;
         exit(EXIT_FAILURE); 
     }  
@@ -46,9 +45,7 @@ void UdpServer::listen(){
 void UdpServer::recieve(){
 	 int n; 
   	socklen_t len;
-  	
     len = sizeof(cliaddr);  //len is value/resuslt 
-  
     n = recvfrom(sockfd, 
     			(char *)buffer, 
     			MAXLINE,  
@@ -56,9 +53,7 @@ void UdpServer::recieve(){
                 &len);
                  
     buffer[n] = '\0'; 
-
     std::string  msg(buffer);
-    std::cout << "*" << std::flush;
     
     // Send our message to our controller
     LEDController *ledc = LEDController::getInstance();
@@ -66,7 +61,6 @@ void UdpServer::recieve(){
     
     // Send response
     send((char *)"ok");
-    
     recieve();
 }
 

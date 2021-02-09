@@ -100,7 +100,14 @@ void AnimationEngine::processCommand(){
     std::cout << "Command" << std::endl;
     std::string msg = getNextCommand();
     std::string command = msg.substr(0, 2);
-    if(command == "0D"){
+    if(command == "0A"){
+        if(strip->state){
+            strip->state = false;
+        }else{
+            strip->state = true;
+        }
+        update();
+    }else if(command == "0D"){
         std::string newBuffer = msg.substr(2, msg.length()-1);
         // confirm we have the right amount of data
         int newBufferLength = newBuffer.length();
