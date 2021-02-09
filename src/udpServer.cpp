@@ -39,7 +39,7 @@ void UdpServer::listen(){
         exit(EXIT_FAILURE); 
     }  
     
-    recieve(); // Start recieving
+    recieve();
 } 
 
 void UdpServer::recieve(){

@@ -7,7 +7,8 @@
 #include <sstream>
 #include "animationEngine.h"
 #include "LEDController.h"
-#include "udpServer.h"
+#include "UdpThread.h"
+#include "TcpServer.h"
 
 LEDController* LEDController::instance = NULL;
 
@@ -50,7 +51,21 @@ void LEDController::stopLoop(){
 }
 
 void LEDController::startListening(){
-	udp->listen();
+	udpthread->start();
+}
+
+void LEDController::startTcp(){
+	try{
+		std::cout << "Starting tcp" << std::endl;
+		boost::asio::io_context io_context;
+		tcp::endpoint listen_endpoint(tcp::v4(), 999);
+		udp::endpoint broadcast_endpoint(boost::asio::ip::make_address("0.0.0.0"), 9999);
+		TcpServer s(io_context, listen_endpoint, broadcast_endpoint);
+		io_context.run();
+	}catch (std::exception& e){
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+	std::cout << "End of tcp" << std::endl;
 }
 
 int main(int argc, char* argv[]){
@@ -58,5 +73,6 @@ int main(int argc, char* argv[]){
     LEDController *ledc = LEDController::getInstance();
     ledc->startLoop();
     ledc->startListening();
+    ledc->startTcp();
 	return 0;
 }

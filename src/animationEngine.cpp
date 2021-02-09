@@ -92,6 +92,7 @@ std::string AnimationEngine::getNextCommand(){
 void AnimationEngine::processCommand(){
     std::cout << "." << std::flush;
     m_commandBuffer.lock();
+    // If we have no commands, just exit
     if(commandBuffer.size() == 0){
         m_commandBuffer.unlock();
         return;

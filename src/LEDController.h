@@ -1,7 +1,7 @@
 #ifndef LEDCONTROLLER_H_INCLUDED
 #define LEDCONTROLLER_H_INCLUDED
 
-#include "udpServer.h"
+#include "UdpThread.h"
 #include "animationEngine.h"
 
 class LEDController{
@@ -16,10 +16,11 @@ public:
 	static LEDController* getInstance();			// return singleton
 	void newMessage(std::string);			        // recieve message from tcp
 	AnimationEngine *ac = new AnimationEngine();	// animation loop
-	UdpServer *udp = new UdpServer();				// UDP server
+	UdpThread *udpthread = new UdpThread();			// UDP server
 	void startLoop();								// start animation loop
 	void stopLoop();								// stop animation loop
 	void startListening();							// start tcp
+	void startTcp();
 };
 
 #endif

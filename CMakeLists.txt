@@ -1,5 +1,5 @@
 PROJECT(sockets)
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.10)
 
 
 include_directories(/usr/local/include /usr/include)
@@ -15,17 +15,29 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
   
 add_executable(server 
-	src/LEDController.cpp
-	src/LEDController.h
-	src/animationEngine.cpp
-	src/animationEngine.h
-	src/ws2812-rpi.cpp
-	src/ws2812-rpi.h
 	src/ws2812-rpi-defines.h
+
+	src/LEDController.h
+	src/animationEngine.h
+	src/ws2812-rpi.h
 	src/udpServer.h
+	src/UdpThread.h
+	
+	src/LEDController.cpp
+	src/animationEngine.cpp
+	src/ws2812-rpi.cpp
 	src/udpServer.cpp
-	src/tcpServer.cpp
-	src/tcpServer.h
+	src/UdpThread.cpp
+
+	src/TcpServer.cpp
+	src/TcpServer.h
+	src/TcpSession.cpp
+	src/TcpSession.h
+	src/TcpChannel.cpp
+	src/TcpChannel.h
+	src/udp_broadcaster.cpp
+	src/udp_broadcaster.h
+
 )
 
 target_link_libraries(server ${Boost_LIBRARIES})
