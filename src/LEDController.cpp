@@ -9,9 +9,17 @@
 #include "LEDController.h"
 #include "UdpThread.h"
 #include "TcpServer.h"
+#include "commandHandler.h"
 
 LEDController* LEDController::instance = NULL;
 
+
+void LEDController::start(){
+	ac->Start();
+    ch->Start();
+    udpthread->start();
+    startTcp();
+}
 
 std::string LEDController::ToHex(const std::string& s, bool upper_case){
     std::ostringstream ret;
@@ -35,23 +43,10 @@ LEDController* LEDController::getInstance(){
 
 void LEDController::newMessage(std::string msg){
 	// XXX: Add comand to "AE" command buffer
-	ac->m_commandBuffer.lock();
-	ac->commandBuffer.push_back(msg);
-	ac->m_commandBuffer.unlock();	
+	ch->m_commandBuffer.lock();
+	ch->commandBuffer.push_back(msg);
+	ch->m_commandBuffer.unlock();	
 	std::cout << "!" << std::flush;
-}
-
-
-void LEDController::startLoop(){
-    ac->Start();
-}
-
-void LEDController::stopLoop(){
-	ac->Stop();
-}
-
-void LEDController::startListening(){
-	udpthread->start();
 }
 
 void LEDController::startTcp(){
@@ -68,11 +63,21 @@ void LEDController::startTcp(){
 	std::cout << "End of tcp" << std::endl;
 }
 
+void LEDController::addNewFrame(std::vector<Color_t> newFrame){
+	ac->m_frameBuffer.lock();
+	ac->frameBuffer.push_back(newFrame);
+	ac->m_frameBuffer.unlock();
+	std::cout << "F" << std::flush;
+}
+
+void LEDController::toggle(){
+	ac->toggle();
+}
+
 int main(int argc, char* argv[]){
     std::cout << "Starting" << std::endl;
     LEDController *ledc = LEDController::getInstance();
-    ledc->startLoop();
-    ledc->startListening();
-    ledc->startTcp();
+    ledc->start();
 	return 0;
 }
+

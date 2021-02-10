@@ -22,12 +22,14 @@ add_executable(server
 	src/ws2812-rpi.h
 	src/udpServer.h
 	src/UdpThread.h
+	src/commandHandler.h
 	
 	src/LEDController.cpp
 	src/animationEngine.cpp
 	src/ws2812-rpi.cpp
 	src/udpServer.cpp
 	src/UdpThread.cpp
+	src/commandHandler.cpp
 
 	src/TcpServer.cpp
 	src/TcpServer.h

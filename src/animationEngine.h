@@ -6,11 +6,6 @@
 #include "ws2812-rpi.h"
 #include <boost/thread.hpp>
 
-struct RGB{
-	short r;
-	short g;
-	short b;
-};
 
 class AnimationEngine{
 private:
@@ -22,12 +17,7 @@ private:
 	void DisplayNextFrame();				// run next frame
 	boost::thread* thr;						// This thread
 	NeoPixel *strip = new NeoPixel(PIXELS);	// LED strip controller
-	void processCommand();					// Process next command buffer
-	std::string getNextCommand();
-	int FromHex(const std::string&);
-	RGB hex2rgb(std::string);
-	std::vector<std::string> SplitWithCharacters(const std::string&, int);
-	std::vector<Color_t> hexString2Color_t(std::string);
+	std::vector<Color_t> getNextFrame();
 
 public:
 	AnimationEngine();							// Constructor
@@ -37,8 +27,9 @@ public:
     void animate();								// Thread animation loop
     void replaceBuffer(std::vector<Color_t>);	// Replace LED buffer
     void update();								// Update lights to LED buffer
-    boost::mutex m_commandBuffer;				// Command buffer mutex
-    std::vector<std::string> commandBuffer;		// Command buffer
+    void toggle();
+    boost::mutex m_frameBuffer;				// Command buffer mutex
+    std::vector<std::vector<Color_t>> frameBuffer;		// Command buffer
 };
 
 
