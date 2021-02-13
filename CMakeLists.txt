@@ -42,4 +42,4 @@ add_executable(server
 
 )
 
-target_link_libraries(server ${Boost_LIBRARIES})
+target_link_libraries(server ${Boost_LIBRARIES} jsoncpp)

@@ -10,6 +10,7 @@
 #include "UdpThread.h"
 #include "TcpServer.h"
 #include "commandHandler.h"
+#include <json/json.h>
 
 LEDController* LEDController::instance = NULL;
 
@@ -72,6 +73,18 @@ void LEDController::addNewFrame(std::vector<Color_t> newFrame){
 
 void LEDController::toggle(){
 	ac->toggle();
+}
+
+std::string LEDController::getStatus(){
+	std::string status = ac->getStatus();
+	return status;
+}
+
+std::string LEDController::stringify(Json::Value in){
+	Json::StreamWriterBuilder builder;
+    builder.settings_["indentation"] = "";
+    std::string out = Json::writeString(builder, in);
+	return out;
 }
 
 int main(int argc, char* argv[]){

@@ -28,8 +28,9 @@ public:
     void replaceBuffer(std::vector<Color_t>);	// Replace LED buffer
     void update();								// Update lights to LED buffer
     void toggle();
-    boost::mutex m_frameBuffer;				// Command buffer mutex
+    boost::mutex m_frameBuffer;							// Command buffer mutex
     std::vector<std::vector<Color_t>> frameBuffer;		// Command buffer
+    std::string getStatus();
 };
 
 

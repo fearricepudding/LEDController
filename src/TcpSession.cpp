@@ -18,6 +18,7 @@
 #include "TcpSession.h"
 #include "TcpSubscriber.h"
 #include "TcpChannel.h"
+#include "LEDController.h"
 
 using boost::asio::steady_timer;
 using boost::asio::ip::tcp;
@@ -44,6 +45,7 @@ tcp::socket& tcp_session::socket(){
 }
 
 void tcp_session::start(){
+	std::cout << "New Session Started" << std::endl;
 	channel_.join(shared_from_this());
 	start_read();
 	input_deadline_.async_wait(boost::bind(&tcp_session::check_deadline, shared_from_this(), &input_deadline_));
@@ -79,13 +81,19 @@ void tcp_session::handle_read(const boost::system::error_code& ec, std::size_t n
 		return;
 	}
 	if(!ec){
-		std::string msg(input_buffer_.substr(0, n-2));
+		std::string msg(input_buffer_.substr(0, n-1));
 		input_buffer_.erase(0, n);
 		if(!msg.empty()){
+			LEDController *ledc = LEDController::getInstance();
 			//XXX: Message not empty process data!!
-			std::cout << msg << std::endl;
-			channel_.deliver("ok"); // XXX: Reponse
 
+			std::cout << std::endl << "[*] " << msg << std::endl;
+			if(msg == "status"){
+				std::string status = ledc->getStatus();
+				channel_.deliver(status);
+			}else{
+				channel_.deliver("READY"); // XXX: Reponse	
+			};
 		}else{
 			if(output_queue_.empty()){
 				output_queue_.push_back("\n");

@@ -8,6 +8,7 @@
 #include "ws2812-rpi-defines.h"
 #include <sys/types.h>
 #include "ws2812-rpi.h"
+#include "LEDController.h"
 
 AnimationEngine::AnimationEngine(){
     m_thread=NULL;
@@ -31,7 +32,12 @@ void AnimationEngine::update(){
 
 void AnimationEngine::DisplayNextFrame(){
     // Simulate next frame
-    std::cout << "U" << std::endl;
+    m_frameBuffer.lock();
+    if(frameBuffer.size() <= 0){
+        m_frameBuffer.unlock();
+        return;
+    }
+    m_frameBuffer.unlock();
     std::vector<Color_t> newFrame = getNextFrame();
     replaceBuffer(newFrame);
     int currentFrame = 0;
@@ -87,4 +93,19 @@ void AnimationEngine::animate(){
         mustStop=m_mustStop;
         m_mustStopMutex.unlock();
     };
+}
+
+
+std::string AnimationEngine::getStatus(){
+    Json::Value status;
+    status["state"] = strip->state;
+    status["colors"] = Json::arrayValue;
+    std::vector<Color_t> pixels = strip->getPixels();
+    for(int i = 0; i < 191; i++){
+        status["colors"][i]["r"] = pixels[i].r;
+        status["colors"][i]["g"] = pixels[i].g;
+        status["colors"][i]["b"] = pixels[i].b;
+    }
+    std::string out = LEDController::stringify(status);
+    return out;
 }

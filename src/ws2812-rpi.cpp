@@ -72,7 +72,7 @@ void NeoPixel::show(){
 	unsigned int colorBits = 0;
 	unsigned char colorBit = 0;
 	unsigned int wireBit = 0;
-    unsigned int stateInt = 0;
+    int stateInt = 0;
 	Color_t color;
 	std::vector<Color_t> updateBuffer = LEDBuffer;
 
@@ -81,9 +81,10 @@ void NeoPixel::show(){
     };
 
 	for(i=0; i<numLEDs; i++) {
-	    updateBuffer[i].r = (LEDBuffer[i].r * brightness) * stateInt;
-	    updateBuffer[i].g = (LEDBuffer[i].g * brightness) * stateInt;
-	    updateBuffer[i].b = (LEDBuffer[i].b * brightness) * stateInt;
+	    updateBuffer[i].r = LEDBuffer[i].r * (brightness * stateInt);
+	    updateBuffer[i].g = LEDBuffer[i].g * (brightness * stateInt);
+	    updateBuffer[i].b = LEDBuffer[i].b * (brightness * stateInt);
+
 	    colorBits = ((unsigned int)updateBuffer[i].r << 8) | ((unsigned int)updateBuffer[i].g << 16) | updateBuffer[i].b;
 
 	    for(j=23; j>=0; j--) {
