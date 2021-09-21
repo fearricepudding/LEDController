@@ -70,7 +70,7 @@ void UdpServer::send(char  *message){
   	socklen_t len;
 	len = sizeof(cliaddr);  //len is value/resuslt 
 	sendto(sockfd, (const char *)message, strlen(message),  
-        MSG_CONFIRM, (const struct sockaddr *) &cliaddr, 
+        true, (const struct sockaddr *) &cliaddr, 
             len); 
 }
 

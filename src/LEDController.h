@@ -7,7 +7,6 @@
 #include "animationEngine.h"
 #include "ws2812-rpi.h"
 #include "commandHandler.h"
-#include "json/json.h"
 
 class LEDController{
 private: 
@@ -27,7 +26,6 @@ public:
 	void toggle();
 	void start();
 	std::string getStatus();
-	static std::string stringify(Json::Value in);
 };
 
 #endif

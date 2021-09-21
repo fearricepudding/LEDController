@@ -347,8 +347,7 @@ void NeoPixel::initHardware(){
         PROT_READ | PROT_WRITE,
         MAP_SHARED |
         MAP_ANONYMOUS |
-        MAP_NORESERVE |
-        MAP_LOCKED,
+        MAP_NORESERVE,
         -1,
         0);
 

@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include "ws2812-rpi.h"
 #include "LEDController.h"
+#include "helpers.h"
 
 AnimationEngine::AnimationEngine(){
     m_thread=NULL;
@@ -97,15 +98,9 @@ void AnimationEngine::animate(){
 
 
 std::string AnimationEngine::getStatus(){
-    Json::Value status;
-    status["state"] = strip->state;
-    status["colors"] = Json::arrayValue;
-    std::vector<Color_t> pixels = strip->getPixels();
-    for(int i = 0; i < 191; i++){
-        status["colors"][i]["r"] = pixels[i].r;
-        status["colors"][i]["g"] = pixels[i].g;
-        status["colors"][i]["b"] = pixels[i].b;
-    }
-    std::string out = LEDController::stringify(status);
-    return out;
+    std::map<std::string, std::string> response;
+    response["state"] = strip->state;
+    std::cout << LEDC::helpers::stringify(response) << std::endl;
+    std::string temp = "GOOD";
+    return temp;
 }

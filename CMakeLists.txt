@@ -8,7 +8,7 @@ link_directories(/usr/local/lib /usr/lib)
 SET(Boost_USE_STATIC_LIBS OFF)
 SET(Boost_USE_MULTITHREAD OFF)
 
-find_package(Boost COMPONENTS thread system REQUIRED)
+find_package(Boost COMPONENTS system thread chrono REQUIRED)
 
 
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
@@ -23,6 +23,7 @@ add_executable(server
 	src/udpServer.h
 	src/UdpThread.h
 	src/commandHandler.h
+    src/helpers.h
 	
 	src/LEDController.cpp
 	src/animationEngine.cpp
@@ -30,6 +31,7 @@ add_executable(server
 	src/udpServer.cpp
 	src/UdpThread.cpp
 	src/commandHandler.cpp
+    src/helpers.cpp
 
 	src/TcpServer.cpp
 	src/TcpServer.h
@@ -39,7 +41,6 @@ add_executable(server
 	src/TcpChannel.h
 	src/udp_broadcaster.cpp
 	src/udp_broadcaster.h
-
 )
 
-target_link_libraries(server ${Boost_LIBRARIES} jsoncpp)
+target_link_libraries(server ${Boost_LIBRARIES} pthread)
