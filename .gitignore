@@ -1,3 +1,4 @@
 build
-
 test
+.vs
+CMakeLists.txt.user
