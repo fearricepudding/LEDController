@@ -100,7 +100,6 @@ void AnimationEngine::animate(){
 std::string AnimationEngine::getStatus(){
     std::map<std::string, std::string> response;
     response["state"] = strip->state;
-    std::cout << LEDC::helpers::stringify(response) << std::endl;
-    std::string temp = "GOOD";
-    return temp;
+    response["status"] = "OK";
+    return LEDC::helpers::stringify(response);
 }
